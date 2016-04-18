@@ -1,0 +1,13 @@
+'use strict';
+import { ExtensionContext, languages, DocumentSelector } from 'vscode';
+import { NpmIntellisense } from './NpmIntellisense';
+
+export function activate(context: ExtensionContext) {
+	const provider = new NpmIntellisense();
+	const triggers = ['"', '\''];
+    const selector = ['typescript', 'javascript'];
+	context.subscriptions.push(languages.registerCompletionItemProvider(selector, provider, ...triggers));
+}
+
+export function deactivate() {
+}
