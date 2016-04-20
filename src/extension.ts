@@ -5,7 +5,7 @@ import { NpmIntellisense } from './NpmIntellisense';
 export function activate(context: ExtensionContext) {
 	const provider = new NpmIntellisense();
 	const triggers = ['"', '\''];
-    const selector = ['typescript', 'javascript'];
+    const selector = ['typescript', 'javascript', 'javascriptreact'];
 	context.subscriptions.push(languages.registerCompletionItemProvider(selector, provider, ...triggers));
 }
 
