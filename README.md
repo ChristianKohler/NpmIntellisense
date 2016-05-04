@@ -1,8 +1,12 @@
 # Npm Intellisense
 Visual Studio Code plugin that autocompletes npm modules in import statements.
 
+![auto complete](/images/auto_complete.gif)
+
 ## Installation
 In the command palette (cmd-shift-p) select Install Extension and choose npm Intellisense.
+
+![install](/images/npm_install.gif)
 
 ## Contributing
 Something missing? Found a bug? - Create a pull request or an issue.
