@@ -23,6 +23,7 @@ Npm intellisense scans only dependencies by default. Set scanDevDependencies to 
 ```
 
 ## History
+* v0.1.1 - Fixed compatibility with VS Code 1.3
 * v0.1.0 - Initial release 
 
 ## License

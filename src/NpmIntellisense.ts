@@ -34,18 +34,12 @@ export class NpmIntellisense implements CompletionItemProvider {
     
     shouldProvide(document: TextDocument, position: Position) {
         const line = document.getText(document.lineAt(position).range);
-        return this.isImportOrRequire(line) && this.getTextWithinString(line, position.character) === ""; 
+        return this.isImportOrRequire(line); 
     }
     
     isImportOrRequire(line: string) {
         let isImport = line.substring(0, 6) === 'import';
         let isRequire = line.indexOf('require(') != -1;
         return isImport || isRequire;
-    }
-    
-    getTextWithinString(line: string, position: number) {
-        const textToPosition = line.substring(0, position);
-        const quoatationPosition = Math.max(textToPosition.lastIndexOf('\"'), textToPosition.lastIndexOf('\''));
-        return quoatationPosition != -1 ? textToPosition.substring(quoatationPosition + 1, textToPosition.length) : undefined;
     }
 }
