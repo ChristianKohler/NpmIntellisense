@@ -34,13 +34,31 @@ export class NpmIntellisense implements CompletionItemProvider {
     
     shouldProvide(document: TextDocument, position: Position) {
         const line = document.getText(document.lineAt(position).range);
-        return this.isImportOrRequire(line) && !this.startsWithADot(line, position.character); 
+        return (
+            this.isImportOrRequire(line, position.character) &&
+            !this.startsWithADot(line, position.character)
+        ); 
     }
     
-    isImportOrRequire(line: string) {
+    isImportOrRequire(line: string, position: number): boolean {
         let isImport = line.substring(0, 6) === 'import';
         let isRequire = line.indexOf('require(') != -1;
-        return isImport || isRequire;
+        return (isImport && this.isAfterFrom(line, position)) || isRequire;
+    }
+
+    isAfterFrom(line: string, position: number) {
+        let fromPosition = this.stringMatches(line, [
+            ' from \'', ' from "',
+            '}from \'', '}from "'
+        ]);
+
+        return fromPosition != -1 && fromPosition < position;
+    }
+
+    private stringMatches(line: string, strings: string[]): number {
+        return strings.reduce((position, str) => {
+            return Math.max(position, line.lastIndexOf(str));
+        }, -1);
     }
 
     startsWithADot(text: string, position: number) {
