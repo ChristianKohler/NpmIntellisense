@@ -1,15 +1,10 @@
 import { CompletionItem, CompletionItemKind, TextDocument, TextEdit, Position, Range } from 'vscode';
 import { getCurrentLine } from './text-parser';
 
-export default class PackageCompletionItem extends CompletionItem {
-  document: TextDocument;
-  position: Position;
-  
+export default class PackageCompletionItem extends CompletionItem {  
   constructor(label: string, document: TextDocument, position: Position) {
     super(label);
     this.kind = CompletionItemKind.Module;
-    this.document = document;
-    this.position = position;
     
     const editRange = this.importStringRange(document, position);
     this.textEdit = TextEdit.replace(editRange, label);
