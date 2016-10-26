@@ -1,18 +1,43 @@
 import { CompletionItemProvider, TextDocument, Position, CompletionItem, CompletionItemKind, workspace } from 'vscode'
-import { readFile } from 'fs';
-import { join } from 'path';
+import { readFile, statSync } from 'fs';
+import { join, resolve as pathResolve, dirname as pathDir } from 'path';
 
 const packageJson = join(workspace.rootPath, 'package.json');
 const scanDevDependencies = workspace.getConfiguration('npm-intellisense')['scanDevDependencies'];
+const recursivePackageJsonLookup = workspace.getConfiguration('npm-intellisense')['recursivePackageJsonLookup'];
+
+function nearestPackageFile(currentPath: string): string {
+    const rootDir = workspace.rootPath;
+    const maybePackageJson = join(currentPath, 'package.json');
+    
+    if (rootDir === currentPath) {
+        return maybePackageJson;
+    }
+
+    try {
+        const packageStat = statSync(maybePackageJson);
+        if (packageStat.isFile()) {
+            return maybePackageJson;
+        }
+    } catch (err) {
+        // no-op
+    }
+
+    return nearestPackageFile(pathResolve(currentPath, '..'));
+}
 
 export class NpmIntellisense implements CompletionItemProvider {
     provideCompletionItems(document: TextDocument, position: Position): Thenable<CompletionItem[]> {
         if (!this.shouldProvide(document, position)) { return Promise.resolve([]) } 
-        return this.getNpmPackages().then(dependencies => dependencies.map(d => this.toCompletionItem(d)));
+        return this.getNpmPackages(document).then(dependencies => dependencies.map(d => this.toCompletionItem(d)));
     }
     
-    getNpmPackages() {
-        return this.readFilePromise(packageJson)
+    getNpmPackages(document: TextDocument) {
+        const packageFile = recursivePackageJsonLookup ? 
+            nearestPackageFile(pathDir(document.fileName)) :
+            packageJson;
+
+        return this.readFilePromise(packageFile)
             .then(config => [
                 ...Object.keys(config.dependencies || {}), 
                 ...Object.keys(scanDevDependencies ? config.devDependencies || {} : {})
