@@ -1,6 +1,10 @@
 import { CompletionItemProvider, TextDocument, Position, CompletionItem, CompletionItemKind, workspace } from 'vscode'
-import { readFile } from 'fs';
+import { readFile, readdir } from 'fs';
 import { join } from 'path';
+
+const split = ( p:string ) => {
+    return p.split('/');
+};
 
 const packageJson = join(workspace.rootPath, 'package.json');
 const scanDevDependencies = workspace.getConfiguration('npm-intellisense')['scanDevDependencies'];
@@ -8,7 +12,29 @@ const scanDevDependencies = workspace.getConfiguration('npm-intellisense')['scan
 export class NpmIntellisense implements CompletionItemProvider {
     provideCompletionItems(document: TextDocument, position: Position): Thenable<CompletionItem[]> {
         if (!this.shouldProvide(document, position)) { return Promise.resolve([]) } 
-        return this.getNpmPackages().then(dependencies => dependencies.map(d => this.toCompletionItem(d)));
+        return this.getNpmPackages()
+            .then(dependencies => {
+                let fragments:Array<string> = document.lineAt(position).text.split('from '),
+                    pkgFragment:string = fragments[fragments.length-1].split(/['"]/)[1],
+                    packageName:string = split(pkgFragment)[0];
+
+                if (dependencies.filter(dep => dep === packageName).length) {
+                    let path:string = join(workspace.rootPath, 'node_modules', ...split(pkgFragment));
+                    return new Promise<any>(( resolve, reject ) => {
+                        readdir(path, ( error, files ) => {
+                            if (error) {
+                                reject(error);
+                            } else {
+                                resolve(files.map(file => file.replace(/\.js$/, '')));
+                            }
+                        });
+                    })
+
+                }
+
+                return dependencies;
+            })
+            .then(items => items.map(this.toCompletionItem));
     }
     
     getNpmPackages() {
@@ -37,7 +63,7 @@ export class NpmIntellisense implements CompletionItemProvider {
         return (
             this.isImportOrRequire(line, position.character) &&
             !this.startsWithADot(line, position.character)
-        ); 
+        );
     }
     
     isImportOrRequire(line: string, position: number): boolean {
