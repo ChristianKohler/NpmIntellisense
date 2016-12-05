@@ -19,7 +19,8 @@
          "onLanguage:typescript",
          "onLanguage:javascript",
          "onLanguage:javascriptreact",
-         "onLanguage:typescriptreact"
+         "onLanguage:typescriptreact",
+         "onCommand:npm-intellisense.import"
     ],
     "contributes": {
         "configuration": {
@@ -30,9 +31,35 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Scans devDependencies as well"
+                },
+                "npm-intellisense.importES6": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Use import statements instead of require()"
+                },
+                "npm-intellisense.importQuotes": {
+                    "type": "string",
+                    "default": "'",
+                    "description": "The type of quotes to use in the snippet"
+                },
+                "npm-intellisense.importLinebreak": {
+                    "type": "string",
+                    "default": ";\r\n",
+                    "description": "The linebreak used after the snippet"
+                },
+                "npm-intellisense.importDeclarationType": {
+                    "type": "string",
+                    "default": "const",
+                    "description": "The declaration type used for require()"
                 }
             }
-        }    
+        },
+        "commands": [
+            {
+                "command": "npm-intellisense.import",
+                "title": "JavaScript: Import a module"
+            }
+        ]
     },
     "icon": "images/icon.png",
     "main": "./out/src/extension",
