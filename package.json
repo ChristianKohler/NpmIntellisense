@@ -51,6 +51,11 @@
                     "type": "string",
                     "default": "const",
                     "description": "The declaration type used for require()"
+                },
+                "npm-intellisense.recursivePackageJsonLookup": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Look for package.json inside nearest directory instead of workspace root"
                 }
             }
         },

@@ -6,7 +6,7 @@ import { getQuickPickItems, getImportStatementFromFilepath } from './util';
 export function activate(context: ExtensionContext) {
 	if (workspace.rootPath) {
 		const provider = new NpmIntellisense();
-		const triggers = ['"', '\''];
+		const triggers = ['"', '\'', '/'];
 	  const selector = ['typescript', 'javascript', 'javascriptreact', 'typescriptreact'];
 		context.subscriptions.push(languages.registerCompletionItemProvider(selector, provider, ...triggers));
 
