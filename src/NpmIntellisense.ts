@@ -1,6 +1,8 @@
 import { CompletionItemProvider, TextDocument, Position, CompletionItem, CompletionItemKind, workspace } from 'vscode'
 import { readFile, statSync } from 'fs';
 import { join, resolve as pathResolve, dirname as pathDir } from 'path';
+import { getTextWithinString, getCurrentLine } from './text-parser';
+import PackageCompletionItem from './PackageCompletionItem';
 
 const packageJson = join(workspace.rootPath, 'package.json');
 const scanDevDependencies = workspace.getConfiguration('npm-intellisense')['scanDevDependencies'];
@@ -29,7 +31,10 @@ function nearestPackageFile(currentPath: string): string {
 export class NpmIntellisense implements CompletionItemProvider {
     provideCompletionItems(document: TextDocument, position: Position): Thenable<CompletionItem[]> {
         if (!this.shouldProvide(document, position)) { return Promise.resolve([]) } 
-        return this.getNpmPackages(document).then(dependencies => dependencies.map(d => this.toCompletionItem(d)));
+  
+        return this.getNpmPackages(document).then(dependencies => {
+            return dependencies.map(d => this.toCompletionItem(d, document, position))
+        });
     }
     
     getNpmPackages(document: TextDocument) {
@@ -51,14 +56,12 @@ export class NpmIntellisense implements CompletionItemProvider {
         });
     }
     
-    toCompletionItem(dep: string) {
-        let item = new CompletionItem(dep);
-        item.kind = CompletionItemKind.Module;
-        return item;
+    toCompletionItem(dep: string, document: TextDocument, position: Position) {
+        return new PackageCompletionItem(dep, document, position);
     }
     
     shouldProvide(document: TextDocument, position: Position) {
-        const line = document.getText(document.lineAt(position).range);
+        const line = getCurrentLine(document, position);
         return (
             this.isImportOrRequire(line, position.character) &&
             !this.startsWithADot(line, position.character)
@@ -87,18 +90,12 @@ export class NpmIntellisense implements CompletionItemProvider {
     }
 
     startsWithADot(text: string, position: number) {
-        const textWithinString = this.getTextWithinString(text, position);
+        const textWithinString = getTextWithinString(text, position);
 
         if (!textWithinString || textWithinString.length === 0) {
             return false;
         }
 
         return textWithinString[0] === '.';
-    }
-
-    getTextWithinString(text: string, position: number) {
-        const textToPosition = text.substring(0, position);
-        const quoatationPosition = Math.max(textToPosition.lastIndexOf('\"'), textToPosition.lastIndexOf('\''));
-        return quoatationPosition != -1 ? textToPosition.substring(quoatationPosition + 1, textToPosition.length) : undefined;
     }
 }
