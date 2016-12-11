@@ -30,6 +30,11 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Scans devDependencies as well"
+                },
+                "npm-intellisense.recursivePackageJsonLookup": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Look for package.json inside nearest directory instead of workspace root"
                 }
             }
         }    
