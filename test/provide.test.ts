@@ -1,0 +1,109 @@
+import * as assert from 'assert';
+import { provide } from '../src/provide';
+import { State } from '../src/State';
+import { Config } from '../src/config';
+import { FsFunctions } from '../src/fs-functions';
+
+suite("provide Tests", () => {
+    test("Should read dependencies", (done: MochaDone) => {
+        const state = createState();
+        const config = {
+            recursivePackageJsonLookup: false,
+            scanDevDependencies: false
+        };
+        const fsf = createFsf();
+
+        provide(state, config, fsf)
+            .then(dependencies => {
+                assert.equal(2, dependencies.length);
+                assert.equal('donald', dependencies[0].label);
+                assert.equal('daisy', dependencies[1].label);
+            })
+            .then(() => done());
+    });
+
+    test("Should read dev dependencies", (done: MochaDone) => {
+        const state = createState();
+        const config = {
+            recursivePackageJsonLookup: false,
+            scanDevDependencies: true
+        };
+        const fsf = createFsf();
+
+        provide(state, config, fsf)
+            .then(dependencies => {
+                assert.equal(3, dependencies.length);
+                assert.equal('donald', dependencies[0].label);
+                assert.equal('daisy', dependencies[1].label);
+                assert.equal('daniel', dependencies[2].label);
+            })
+            .then(() => done());
+    });
+
+    test("Should get nearest package json", (done: MochaDone) => {
+        const state = createState();
+        const config = {
+            recursivePackageJsonLookup: true,
+            scanDevDependencies: true
+        };
+        const fsf = createFsf();
+
+        provide(state, config, fsf)
+            .then(dependencies => {
+                assert.equal(1, dependencies.length);
+                assert.equal('goofy', dependencies[0].label);
+            })
+            .catch(() => done());
+    });
+});
+
+function createState(): State {
+    return {
+        rootPath: '/User/dummy/project',
+        filePath: '/User/dummy/project/src',
+        textCurrentLine: undefined,
+        cursorPosition: undefined
+    }
+}
+
+function createConfig(): Config {
+    return {
+        recursivePackageJsonLookup: false,
+        scanDevDependencies: false
+    };
+}
+
+function createFsf(): FsFunctions {
+    return {
+        readJson: readJsonMock,
+        isFile: isFileMock
+    };
+}
+
+function readJsonMock(path) : Promise<any> {
+    switch (path) {
+        case '/User/dummy/project/src/':
+            return Promise.resolve({
+                dependencies: {
+                    "goofy": "1.0.0"
+                }
+            });
+        default:
+            return Promise.resolve({
+                dependencies: {
+                    "donald": "1.0.0",
+                    "daisy": "1.0.0"
+                },
+                devDependencies: {
+                    "daniel": "1.0.0",
+                }
+            });
+    }
+}
+
+function isFileMock(path) {
+    return [
+        '/User/dummy/project/src/package.json',
+        '/User/dummy/project/package.json'
+    ].indexOf(path) !== -1;
+}

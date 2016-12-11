@@ -1,7 +1,6 @@
 import { CompletionItem, CompletionItemKind, TextDocument, TextEdit, Position, Range } from 'vscode';
-import { getCurrentLine } from './text-parser';
 
-export default class PackageCompletionItem extends CompletionItem {  
+export class PackageCompletionItem extends CompletionItem {  
   constructor(label: string, document: TextDocument, position: Position) {
     super(label);
     this.kind = CompletionItemKind.Module;
@@ -11,7 +10,7 @@ export default class PackageCompletionItem extends CompletionItem {
   }
 
   importStringRange(document: TextDocument, position: Position): Range {
-    const line = getCurrentLine(document, position);
+    const line = document.lineAt(position).text;
     const textToPosition = line.substring(0, position.character);
     const quoatationPosition = Math.max(textToPosition.lastIndexOf('\"'), textToPosition.lastIndexOf('\''));
     
