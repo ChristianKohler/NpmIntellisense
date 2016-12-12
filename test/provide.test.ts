@@ -46,7 +46,7 @@ suite("provide Tests", () => {
         const state = createState();
         const config = {
             recursivePackageJsonLookup: true,
-            scanDevDependencies: true
+            scanDevDependencies: false
         };
         const fsf = createFsf();
 
@@ -86,7 +86,7 @@ function createFsf(): FsFunctions {
 
 function readJsonMock(path) : Promise<any> {
     switch (path) {
-        case '/User/dummy/project/src/':
+        case '/User/dummy/project/src/package.json':
             return Promise.resolve({
                 dependencies: {
                     "goofy": "1.0.0"
