@@ -2,5 +2,6 @@ export interface State {
     rootPath: string,
     filePath: string,
     textCurrentLine: string,
-    cursorPosition: number
+    cursorPosition: number,
+    cursorLine: number
 }

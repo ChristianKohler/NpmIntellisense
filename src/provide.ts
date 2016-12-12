@@ -3,14 +3,15 @@ import { Config } from './config';
 import { fsf, FsFunctions } from './fs-functions';
 import { join, resolve } from 'path';
 import { CompletionItem } from 'vscode';
+import { PackageCompletionItem } from './PackageCompletionItem';
 
 export function provide(state: State, config: Config, fsf: FsFunctions): Promise<CompletionItem[]> {
     return getNpmPackages(state, config, fsf)
-        .then(dependencies => dependencies.map(toCompletionItem));
+        .then(dependencies => dependencies.map(d => toCompletionItem(d, state)));
 }
 
-function toCompletionItem(dependency) {
-    return new CompletionItem(dependency);
+function toCompletionItem(dependency: string, state: State) {
+    return new PackageCompletionItem(dependency, state);
 }
 
 function getNpmPackages(state: State, config: Config, fsf: FsFunctions) {

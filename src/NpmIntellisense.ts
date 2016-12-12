@@ -17,7 +17,8 @@ export class NpmIntellisense implements CompletionItemProvider {
             rootPath: workspace.rootPath,
             filePath: pathDir(document.fileName),
             textCurrentLine: document.lineAt(position).text,
-            cursorPosition: position.character
+            cursorPosition: position.character,
+            cursorLine: position.line
         };
 
         return shouldProvide(state) ? provide(state, getConfig(), fsf) : Promise.resolve([])

@@ -16,10 +16,11 @@ suite("provide Tests", () => {
         provide(state, config, fsf)
             .then(dependencies => {
                 assert.equal(2, dependencies.length);
-                assert.equal('donald', dependencies[0].label);
-                assert.equal('daisy', dependencies[1].label);
+                assert.equal('donald', dependencies[0].textEdit.newText);
+                assert.equal('daisy', dependencies[1].textEdit.newText);
             })
-            .then(() => done());
+            .then(() => done())
+            .catch(err => done(err));
     });
 
     test("Should read dev dependencies", (done: MochaDone) => {
@@ -33,11 +34,12 @@ suite("provide Tests", () => {
         provide(state, config, fsf)
             .then(dependencies => {
                 assert.equal(3, dependencies.length);
-                assert.equal('donald', dependencies[0].label);
-                assert.equal('daisy', dependencies[1].label);
-                assert.equal('daniel', dependencies[2].label);
+                assert.equal('donald', dependencies[0].textEdit.newText);
+                assert.equal('daisy', dependencies[1].textEdit.newText);
+                assert.equal('daniel', dependencies[2].textEdit.newText);
             })
-            .then(() => done());
+            .then(() => done())
+            .catch(err => done(err));
     });
 
     test("Should get nearest package json", (done: MochaDone) => {
@@ -51,9 +53,10 @@ suite("provide Tests", () => {
         provide(state, config, fsf)
             .then(dependencies => {
                 assert.equal(1, dependencies.length);
-                assert.equal('goofy', dependencies[0].label);
+                assert.equal('goofy', dependencies[0].textEdit.newText);
             })
-            .catch(() => done());
+            .then(() => done())
+            .catch(err => done(err));
     });
 });
 
@@ -61,8 +64,9 @@ function createState(): State {
     return {
         rootPath: '/User/dummy/project',
         filePath: '/User/dummy/project/src',
-        textCurrentLine: undefined,
-        cursorPosition: undefined
+        textCurrentLine: "import {} from ''",
+        cursorPosition: 16,
+        cursorLine: 0
     }
 }
 

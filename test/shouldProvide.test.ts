@@ -29,6 +29,7 @@ function createState(line: string) : State {
         rootPath: undefined,
         filePath: undefined,
         textCurrentLine: line.split('‸').join(),
-        cursorPosition: line.indexOf('‸')
+        cursorPosition: line.indexOf('‸'),
+        cursorLine: 0
     }
 }
