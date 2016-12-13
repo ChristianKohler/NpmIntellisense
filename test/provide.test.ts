@@ -7,9 +7,10 @@ import { FsFunctions } from '../src/fs-functions';
 suite("provide Tests", () => {
     test("Should read dependencies", (done: MochaDone) => {
         const state = createState();
-        const config = {
+        const config : Config = {
             recursivePackageJsonLookup: false,
-            scanDevDependencies: false
+            scanDevDependencies: false,
+            packageSubfoldersIntellisense: false
         };
         const fsf = createFsf();
 
@@ -25,9 +26,10 @@ suite("provide Tests", () => {
 
     test("Should read dev dependencies", (done: MochaDone) => {
         const state = createState();
-        const config = {
+        const config: Config = {
             recursivePackageJsonLookup: false,
-            scanDevDependencies: true
+            scanDevDependencies: true,
+            packageSubfoldersIntellisense: false
         };
         const fsf = createFsf();
 
@@ -44,9 +46,10 @@ suite("provide Tests", () => {
 
     test("Should get nearest package json", (done: MochaDone) => {
         const state = createState();
-        const config = {
+        const config: Config = {
             recursivePackageJsonLookup: true,
-            scanDevDependencies: false
+            scanDevDependencies: false,
+            packageSubfoldersIntellisense: false
         };
         const fsf = createFsf();
 
@@ -70,17 +73,11 @@ function createState(): State {
     }
 }
 
-function createConfig(): Config {
-    return {
-        recursivePackageJsonLookup: false,
-        scanDevDependencies: false
-    };
-}
-
 function createFsf(): FsFunctions {
     return {
         readJson: readJsonMock,
-        isFile: isFileMock
+        isFile: isFileMock,
+        readDir: readDirMock
     };
 }
 
@@ -110,4 +107,8 @@ function isFileMock(path) {
         '/User/dummy/project/src/package.json',
         '/User/dummy/project/package.json'
     ].indexOf(path) !== -1;
+}
+
+function readDirMock(path) {
+    return [];
 }

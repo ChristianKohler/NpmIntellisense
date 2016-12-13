@@ -2,12 +2,14 @@ import { readFile, readdir, statSync } from 'fs';
 
 export interface FsFunctions {
     readJson: Function,
-    isFile: Function
+    isFile: Function,
+    readDir: Function
 }
 
 export const fsf : FsFunctions = {
     readJson,
-    isFile
+    isFile,
+    readDir
 }
 
 function readJson(file) {
@@ -22,4 +24,10 @@ function isFile(path: string) {
     } catch (err) {
         return false;
     }
+}
+
+function readDir(path: string) {
+    return new Promise<string[]>((resolve, reject) => {
+        readdir(path, (err, files) => err ? reject(err) : resolve(files));
+    });
 }

@@ -19,8 +19,8 @@
          "onLanguage:typescript",
          "onLanguage:javascript",
          "onLanguage:javascriptreact",
-         "onLanguage:typescriptreact",
-         "onCommand:npm-intellisense.import"
+         "onLanguage:typescriptreact"
+        //  "onCommand:npm-intellisense.import"
     ],
     "contributes": {
         "configuration": {
@@ -32,31 +32,36 @@
                     "default": false,
                     "description": "Scans devDependencies as well"
                 },
-                "npm-intellisense.importES6": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Use import statements instead of require()"
-                },
-                "npm-intellisense.importQuotes": {
-                    "type": "string",
-                    "default": "'",
-                    "description": "The type of quotes to use in the snippet"
-                },
-                "npm-intellisense.importLinebreak": {
-                    "type": "string",
-                    "default": ";\r\n",
-                    "description": "The linebreak used after the snippet"
-                },
-                "npm-intellisense.importDeclarationType": {
-                    "type": "string",
-                    "default": "const",
-                    "description": "The declaration type used for require()"
-                },
                 "npm-intellisense.recursivePackageJsonLookup": {
                     "type": "boolean",
                     "default": true,
                     "description": "Look for package.json inside nearest directory instead of workspace root"
+                },
+                "npm-intellisense.packageSubfoldersIntellisense": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "(experimental) Enables path intellisense in subfolders of modules"
                 }
+                // "npm-intellisense.importES6": {
+                //     "type": "boolean",
+                //     "default": true,
+                //     "description": "Use import statements instead of require()"
+                // },
+                // "npm-intellisense.importQuotes": {
+                //     "type": "string",
+                //     "default": "'",
+                //     "description": "The type of quotes to use in the snippet"
+                // },
+                // "npm-intellisense.importLinebreak": {
+                //     "type": "string",
+                //     "default": ";\r\n",
+                //     "description": "The linebreak used after the snippet"
+                // },
+                // "npm-intellisense.importDeclarationType": {
+                //     "type": "string",
+                //     "default": "const",
+                //     "description": "The declaration type used for require()"
+                // }
             }
         },
         "commands": [

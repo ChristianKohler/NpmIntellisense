@@ -7,6 +7,10 @@ import { PackageCompletionItem } from './PackageCompletionItem';
 
 export function provide(state: State, config: Config, fsf: FsFunctions): Promise<CompletionItem[]> {
     return getNpmPackages(state, config, fsf)
+        .then(dependencies => {
+            return config.packageSubfoldersIntellisense ?
+                readModuleSubFolders(dependencies, state, fsf) : dependencies;
+        })
         .then(dependencies => dependencies.map(d => toCompletionItem(d, state)));
 }
 
@@ -24,17 +28,34 @@ function getNpmPackages(state: State, config: Config, fsf: FsFunctions) {
 }
 
 function getPackageJson(state: State, config: Config, fsf: FsFunctions) {
-    return config.recursivePackageJsonLookup ? 
+    return config.recursivePackageJsonLookup ?
         nearestPackageJson(state.rootPath, state.filePath, fsf) :
         join(state.rootPath, 'package.json');
 }
 
 function nearestPackageJson(rootPath: string, currentPath: string, fsf: FsFunctions): string {
     const packageJsonFullPath = join(currentPath, 'package.json');
-    
+
     if (currentPath === rootPath || fsf.isFile(packageJsonFullPath)) {
         return packageJsonFullPath;
     }
 
     return nearestPackageJson(rootPath, resolve(currentPath, '..'), fsf);
+}
+
+function readModuleSubFolders(dependencies: string[], state: State, fsf: FsFunctions) {
+    const fragments: Array<string> = state.textCurrentLine.split('from ');
+    const pkgFragment: string = fragments[fragments.length - 1].split(/['"]/)[1];
+    const pkgFragmentSplit = pkgFragment.split('/');
+    const packageName: string = pkgFragmentSplit[0];
+
+    if (dependencies.filter(dep => dep === packageName).length) {
+        const path = join(state.rootPath, 'node_modules', ...pkgFragmentSplit);
+        // Todo: make the replace function work with other filetypes as well
+        return fsf.readDir(path)
+            .then(files => files.map(file => pkgFragment + file.replace(/\.js$/, '')))
+            .catch(err => ['']);
+    }
+
+    return Promise.resolve(dependencies);
 }

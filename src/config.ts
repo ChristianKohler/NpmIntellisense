@@ -2,7 +2,8 @@ import { workspace } from 'vscode'
 
 export interface Config {
     scanDevDependencies: boolean,
-    recursivePackageJsonLookup: boolean
+    recursivePackageJsonLookup: boolean,
+    packageSubfoldersIntellisense: boolean
 }
 
 export function getConfig() : Config {
@@ -10,6 +11,7 @@ export function getConfig() : Config {
 
     return {
         scanDevDependencies: configuration['scanDevDependencies'],
-        recursivePackageJsonLookup: configuration['recursivePackageJsonLookup']
+        recursivePackageJsonLookup: configuration['recursivePackageJsonLookup'],
+        packageSubfoldersIntellisense: configuration['packageSubfoldersIntellisense'],
     };
 }
