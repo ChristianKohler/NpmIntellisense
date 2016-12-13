@@ -22,11 +22,38 @@ Npm intellisense scans only dependencies by default. Set scanDevDependencies to 
 }
 ```
 
+### Lookup package.json recursive
+Look for package.json inside nearest directory instead of workspace root. It's enabled by default.
+
+```javascript
+{
+	"npm-intellisense.recursivePackageJsonLookup": true,
+}
+```
+
+### Experimental: Package Subfolder Intellisense
+Open subfolders of a module.
+This feature is work in progress and experimental.
+
+```javascript
+{
+	"npm-intellisense.packageSubfoldersIntellisense": false,
+}
+```
+
 ## History
-* v0.1.4 - Fixed #13, #16
-* v0.1.3 - Fixed conflict with PathIntellisense
-* v0.1.1 - Fixed compatibility with VS Code 1.3
-* v0.1.0 - Initial release 
+### v1.0.0
+- Feature: recursivePackageJsonLookup, thank you @kasperekt
+- Feature: packageSubfoldersIntellisense  (experimental), thank you @dgieselaar
+- Fixes dashes inside name, thank you @kasperekt, #10
+### v0.1.4
+- Fixed #13, #16
+### v0.1.3
+- Fixed conflict with PathIntellisense
+### v0.1.1
+- Fixed compatibility with VS Code 1.3
+### v0.1.0
+- Initial release 
 
 ## License
 This software is released under [MIT License](http://www.opensource.org/licenses/mit-license.php)
