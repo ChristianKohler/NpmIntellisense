@@ -1,9 +1,13 @@
 import { workspace } from 'vscode'
 
 export interface Config {
-    scanDevDependencies: boolean,
-    recursivePackageJsonLookup: boolean,
-    packageSubfoldersIntellisense: boolean
+    scanDevDependencies?: boolean,
+    recursivePackageJsonLookup?: boolean,
+    packageSubfoldersIntellisense?: boolean,
+    importES6?: boolean,
+    importQuotes?: string,
+    importLinebreak?: string,
+    importDeclarationType?: string
 }
 
 export function getConfig() : Config {
@@ -13,5 +17,9 @@ export function getConfig() : Config {
         scanDevDependencies: configuration['scanDevDependencies'],
         recursivePackageJsonLookup: configuration['recursivePackageJsonLookup'],
         packageSubfoldersIntellisense: configuration['packageSubfoldersIntellisense'],
+        importES6: configuration['importES6'],
+        importQuotes:configuration['importQuotes'],
+        importLinebreak:configuration['importLinebreak'],
+        importDeclarationType: configuration['importDeclarationType']
     };
 }

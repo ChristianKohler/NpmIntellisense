@@ -1,6 +1,6 @@
 import { CompletionItemProvider, TextDocument, Position, CompletionItem, CompletionItemKind, workspace } from 'vscode'
 import { readFile, readdir, statSync } from 'fs';
-import { join, resolve as pathResolve, dirname as pathDir } from 'path';
+import { dirname } from 'path';
 import { PackageCompletionItem } from './PackageCompletionItem';
 import { getConfig, Config } from './config';
 import { shouldProvide } from './shouldProvide';
@@ -12,7 +12,7 @@ export class NpmIntellisense implements CompletionItemProvider {
     provideCompletionItems(document: TextDocument, position: Position): Thenable<CompletionItem[]> {    
         const state : State = {
             rootPath: workspace.rootPath,
-            filePath: pathDir(document.fileName),
+            filePath: dirname(document.fileName),
             textCurrentLine: document.lineAt(position).text,
             cursorPosition: position.character,
             cursorLine: position.line

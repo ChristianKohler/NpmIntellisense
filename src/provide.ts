@@ -14,17 +14,17 @@ export function provide(state: State, config: Config, fsf: FsFunctions): Promise
         .then(dependencies => dependencies.map(d => toCompletionItem(d, state)));
 }
 
-function toCompletionItem(dependency: string, state: State) {
-    return new PackageCompletionItem(dependency, state);
-}
-
-function getNpmPackages(state: State, config: Config, fsf: FsFunctions) {
+export function getNpmPackages(state: State, config: Config, fsf: FsFunctions) {
     return fsf.readJson(getPackageJson(state, config, fsf))
         .then(packageJson => [
             ...Object.keys(packageJson.dependencies || {}),
             ...Object.keys(config.scanDevDependencies ? packageJson.devDependencies || {} : {})
         ])
         .catch(() => []);
+}
+
+function toCompletionItem(dependency: string, state: State) {
+    return new PackageCompletionItem(dependency, state);
 }
 
 function getPackageJson(state: State, config: Config, fsf: FsFunctions) {
