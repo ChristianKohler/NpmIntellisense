@@ -7,11 +7,7 @@ import { FsFunctions } from '../src/fs-functions';
 suite("provide Tests", () => {
     test("Should read dependencies", (done: MochaDone) => {
         const state = createState();
-        const config : Config = {
-            recursivePackageJsonLookup: false,
-            scanDevDependencies: false,
-            packageSubfoldersIntellisense: false
-        };
+        const config : Config = { };
         const fsf = createFsf();
 
         provide(state, config, fsf)
@@ -27,9 +23,7 @@ suite("provide Tests", () => {
     test("Should read dev dependencies", (done: MochaDone) => {
         const state = createState();
         const config: Config = {
-            recursivePackageJsonLookup: false,
-            scanDevDependencies: true,
-            packageSubfoldersIntellisense: false
+            scanDevDependencies: true
         };
         const fsf = createFsf();
 
@@ -44,12 +38,27 @@ suite("provide Tests", () => {
             .catch(err => done(err));
     });
 
+    test("Should show build in node modules when enabled", (done: MochaDone) => {
+        const state = createState();
+        const config: Config = {
+            showBuildInLibs: true
+        };
+        const fsf = createFsf();
+
+        provide(state, config, fsf)
+            .then(dependencies => {
+                assert.equal(30, dependencies.length);
+                assert.equal(true, dependencies.some(d => d.textEdit.newText === 'fs'));
+                assert.equal(true, dependencies.some(d => d.textEdit.newText === 'path'));
+            })
+            .then(() => done())
+            .catch(err => done(err));
+    });
+
     test("Should get nearest package json", (done: MochaDone) => {
         const state = createState();
         const config: Config = {
-            recursivePackageJsonLookup: true,
-            scanDevDependencies: false,
-            packageSubfoldersIntellisense: false
+            recursivePackageJsonLookup: true
         };
         const fsf = createFsf();
 

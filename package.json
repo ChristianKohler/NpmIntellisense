@@ -2,7 +2,7 @@
     "name": "npm-intellisense",
     "displayName": "npm Intellisense",
     "description": "Visual Studio Code plugin that autocompletes npm modules in import statements",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "publisher": "christian-kohler",
     "engines": {
         "vscode": "^1.0.0"
@@ -42,32 +42,37 @@
                     "default": false,
                     "description": "(experimental) Enables path intellisense in subfolders of modules"
                 },
+                "npm-intellisense.showBuildInLibs": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "shows build in node modules like 'path' of 'fs'"
+                },
                 "npm-intellisense.importES6": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Use import statements instead of require()"
+                    "description": "For import command. Use import statements instead of require()"
                 },
                 "npm-intellisense.importQuotes": {
                     "type": "string",
                     "default": "'",
-                    "description": "The type of quotes to use in the snippet"
+                    "description": "For import command. The type of quotes to use in the snippet"
                 },
                 "npm-intellisense.importLinebreak": {
                     "type": "string",
                     "default": ";\r\n",
-                    "description": "The linebreak used after the snippet"
+                    "description": "For import command. The linebreak used after the snippet"
                 },
                 "npm-intellisense.importDeclarationType": {
                     "type": "string",
                     "default": "const",
-                    "description": "The declaration type used for require()"
+                    "description": "For import command. The declaration type used for require()"
                 }
             }
         },
         "commands": [
             {
                 "command": "npm-intellisense.import",
-                "title": "JavaScript: Import a module"
+                "title": "NPM Intellisense: Import module"
             }
         ]
     },

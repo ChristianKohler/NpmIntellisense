@@ -8,11 +8,25 @@ In the command palette (cmd-shift-p) select Install Extension and choose npm Int
 
 ![install](/images/npm_install.gif)
 
+
 ## Contributing
 Something missing? Found a bug? - Create a pull request or an issue.
 [Github](https://github.com/ChristianKohler/NpmIntellisense)
 
-## Settings
+## Features
+### Import command
+
+![import command](/images/importcommand.gif)
+
+```javascript
+{
+	"npm-intellisense.importES6": true,
+	"npm-intellisense.importQuotes": "'",
+	"npm-intellisense.importLinebreak": ";\r\n",
+	"npm-intellisense.importDeclarationType": "const",
+}
+```
+
 ### Scan devDependencies
 Npm intellisense scans only dependencies by default. Set scanDevDependencies to true to enable it for devDependencies too.
 
@@ -42,6 +56,9 @@ This feature is work in progress and experimental.
 ```
 
 ## History
+### v1.1.0
+- Feature: Import command, thank you @dgieselaar
+- Feature: List build in node modules #14
 ### v1.0.0
 - Feature: recursivePackageJsonLookup, thank you @kasperekt
 - Feature: packageSubfoldersIntellisense  (experimental), thank you @dgieselaar

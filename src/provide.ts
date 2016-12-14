@@ -4,6 +4,7 @@ import { fsf, FsFunctions } from './fs-functions';
 import { join, resolve } from 'path';
 import { CompletionItem } from 'vscode';
 import { PackageCompletionItem } from './PackageCompletionItem';
+import * as repl from 'repl';
 
 export function provide(state: State, config: Config, fsf: FsFunctions): Promise<CompletionItem[]> {
     return getNpmPackages(state, config, fsf)
@@ -18,9 +19,14 @@ export function getNpmPackages(state: State, config: Config, fsf: FsFunctions) {
     return fsf.readJson(getPackageJson(state, config, fsf))
         .then(packageJson => [
             ...Object.keys(packageJson.dependencies || {}),
-            ...Object.keys(config.scanDevDependencies ? packageJson.devDependencies || {} : {})
+            ...Object.keys(config.scanDevDependencies ? packageJson.devDependencies || {} : {}),
+            ...(config.showBuildInLibs ? getBuildInModules() : [])
         ])
         .catch(() => []);
+}
+
+function getBuildInModules() : string[] {
+    return (<any>repl)._builtinLibs;
 }
 
 function toCompletionItem(dependency: string, state: State) {
