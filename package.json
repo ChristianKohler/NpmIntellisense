@@ -8,19 +8,18 @@
         "vscode": "^1.0.0"
     },
     "homepage": "https://github.com/ChristianKohler/NpmIntellisense",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ChristianKohler/NpmIntellisense.git"
-	},
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ChristianKohler/NpmIntellisense.git"
+    },
     "categories": [
         "Other"
     ],
     "activationEvents": [
-         "onLanguage:typescript",
-         "onLanguage:javascript",
-         "onLanguage:javascriptreact",
-         "onLanguage:typescriptreact"
-        //  "onCommand:npm-intellisense.import"
+        "onLanguage:typescript",
+        "onLanguage:javascript",
+        "onLanguage:javascriptreact",
+        "onLanguage:typescriptreact"
     ],
     "contributes": {
         "configuration": {
@@ -42,26 +41,6 @@
                     "default": false,
                     "description": "(experimental) Enables path intellisense in subfolders of modules"
                 }
-                // "npm-intellisense.importES6": {
-                //     "type": "boolean",
-                //     "default": true,
-                //     "description": "Use import statements instead of require()"
-                // },
-                // "npm-intellisense.importQuotes": {
-                //     "type": "string",
-                //     "default": "'",
-                //     "description": "The type of quotes to use in the snippet"
-                // },
-                // "npm-intellisense.importLinebreak": {
-                //     "type": "string",
-                //     "default": ";\r\n",
-                //     "description": "The linebreak used after the snippet"
-                // },
-                // "npm-intellisense.importDeclarationType": {
-                //     "type": "string",
-                //     "default": "const",
-                //     "description": "The declaration type used for require()"
-                // }
             }
         },
         "commands": [
