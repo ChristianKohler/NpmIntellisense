@@ -26,7 +26,9 @@ function isAfterFrom(textCurrentLine: string, position: number) {
 function isImportWithoutFrom(textCurrentLine: string, postition: number) { 
     let modulePosition = stringMatches(textCurrentLine, [
         ' \'', // spec calls for a space, e.g. `import 'module-name';`
-        '\'' // tested with babel, it doesn't care if there is a space, so `import'module-name';` is valid too
+        '\'' // tested with babel, it doesn't care if there is a space, so `import'module-name';` is valid too,
+        '"',
+        ' "'
     ], true);
     return modulePosition != -1 && modulePosition < postition;
 }

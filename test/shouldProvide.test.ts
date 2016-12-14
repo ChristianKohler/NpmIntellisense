@@ -28,13 +28,23 @@ suite("shouldProvide Tests", () => {
         assert.equal(false, shouldProvide(state));
     });
 
-    test("Should provide when import is followed by a module name without a dot", () => {
+    test("Should provide when import is followed by a single quoted module name", () => {
         const state = createState("import '‸'");
         assert.equal(true, shouldProvide(state));
     });
 
-    test("Should provide when import is followed by a module name and bad spacing", () => {
+    test("Should provide when import is followed by a single quoted module name with bad spacing", () => {
         const state = createState("import'‸'");
+        assert.equal(true, shouldProvide(state));
+    });
+
+    test("Should provide when import is followed by a double quoted module name", () => {
+        const state = createState("import \"‸\"");
+        assert.equal(true, shouldProvide(state));
+    });
+
+    test("Should provide when import is followed by a double quoted module name with bad spacing", () => {
+        const state = createState("import\"‸\"");
         assert.equal(true, shouldProvide(state));
     });
 
