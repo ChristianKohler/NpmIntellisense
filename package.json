@@ -2,7 +2,7 @@
     "name": "npm-intellisense",
     "displayName": "npm Intellisense",
     "description": "Visual Studio Code plugin that autocompletes npm modules in import statements",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "publisher": "christian-kohler",
     "engines": {
         "vscode": "^1.0.0"

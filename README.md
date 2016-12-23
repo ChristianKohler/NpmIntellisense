@@ -36,6 +36,15 @@ Npm intellisense scans only dependencies by default. Set scanDevDependencies to 
 }
 ```
 
+### Show build in (local) libs
+Shows build in node modules like 'path' of 'fs'
+
+```javascript
+{
+	"npm-intellisense.showBuildInLibs": true,
+}
+```
+
 ### Lookup package.json recursive
 Look for package.json inside nearest directory instead of workspace root. It's enabled by default.
 
@@ -56,6 +65,9 @@ This feature is work in progress and experimental.
 ```
 
 ## History
+### v1.2.1
+- Documentation: Added missing documentation for showBuildInLibs
+
 ### v1.2.0
 - Feature: Support for ```import 'modulename'``` syntax. Thank you @elderfo #25
 
