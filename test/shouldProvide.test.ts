@@ -22,6 +22,32 @@ suite("shouldProvide Tests", () => {
         const state = createState("import {  } from '.‸'");
         assert.equal(false, shouldProvide(state));
     });
+
+    test("Should not provide when import starts with a dot", () => {
+        const state = createState("import '.‸'");
+        assert.equal(false, shouldProvide(state));
+    });
+
+    test("Should provide when import is followed by a single quoted module name", () => {
+        const state = createState("import '‸'");
+        assert.equal(true, shouldProvide(state));
+    });
+
+    test("Should provide when import is followed by a single quoted module name with bad spacing", () => {
+        const state = createState("import'‸'");
+        assert.equal(true, shouldProvide(state));
+    });
+
+    test("Should provide when import is followed by a double quoted module name", () => {
+        const state = createState("import \"‸\"");
+        assert.equal(true, shouldProvide(state));
+    });
+
+    test("Should provide when import is followed by a double quoted module name with bad spacing", () => {
+        const state = createState("import\"‸\"");
+        assert.equal(true, shouldProvide(state));
+    });
+
 });
 
 function createState(line: string) : State {
