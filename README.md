@@ -56,6 +56,9 @@ This feature is work in progress and experimental.
 ```
 
 ## History
+### v1.2.0
+- Feature: Support for ```import 'modulename'``` syntax. Thank you @elderfo #25
+
 ### v1.1.0
 - Feature: Import command, thank you @dgieselaar
 - Feature: List build in node modules #14
