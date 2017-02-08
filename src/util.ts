@@ -113,3 +113,6 @@ export const getImportStatementFromFilepath = ( filePath:string ):string => {
 
 		return statement;
 };
+
+export const guessVariableName = (packageName:string ):string => 
+	packageName.replace(/-\w/gm,(sub:string, args: any[]) => sub.replace('-','').toUpperCase())

@@ -4,7 +4,7 @@ import { getNpmPackages } from './provide';
 import { fsf } from './fs-functions';
 import { State } from './State';
 import { getConfig, Config } from './config';
-import { getImportStatementFromFilepath, getQuickPickItems } from './util';
+import { getImportStatementFromFilepath, getQuickPickItems, guessVariableName } from './util';
 
 const quickPickOptions : QuickPickOptions = {
     matchOnDescription: true
@@ -39,7 +39,7 @@ function moduleNameToQuickPickItem(moduleName: string) : QuickPickItem {
 
 function addImportStatementToCurrentFile(item: QuickPickItem, config: Config) {
     const statementES6 = `import {} from ${config.importQuotes}${item.label}${config.importQuotes}${config.importLinebreak}`;
-    const statementRequire = `${config.importDeclarationType} xy = require(${config.importQuotes}${item.label}${config.importQuotes})${config.importLinebreak}`;
+    const statementRequire = `${config.importDeclarationType} ${guessVariableName(item.label)} = require(${config.importQuotes}${item.label}${config.importQuotes})${config.importLinebreak}`;
     const statement = config.importES6 ? statementES6 : statementRequire;
     const insertLocation = window.activeTextEditor.selection.start;
     window.activeTextEditor.edit(edit => edit.insert(insertLocation, statement));

@@ -27,6 +27,19 @@ Something missing? Found a bug? - Create a pull request or an issue.
 }
 ```
 
+### Import command (ES5)
+
+![import command](/images/require_withname.gif)
+
+```javascript
+{
+	"npm-intellisense.importES6": false,
+	"npm-intellisense.importQuotes": "'",
+	"npm-intellisense.importLinebreak": ";\r\n",
+	"npm-intellisense.importDeclarationType": "const",
+}
+```
+
 ### Scan devDependencies
 Npm intellisense scans only dependencies by default. Set scanDevDependencies to true to enable it for devDependencies too.
 
