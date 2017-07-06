@@ -20,12 +20,12 @@ export function getNpmPackages(state: State, config: Config, fsf: FsFunctions) {
         .then(packageJson => [
             ...Object.keys(packageJson.dependencies || {}),
             ...Object.keys(config.scanDevDependencies ? packageJson.devDependencies || {} : {}),
-            ...(config.showBuildInLibs ? getBuildInModules() : [])
+            ...(config.showBuiltInLibs ? getBuiltInModules() : [])
         ])
         .catch(() => []);
 }
 
-function getBuildInModules() : string[] {
+function getBuiltInModules(): string[] {
     return (<any>repl)._builtinLibs;
 }
 

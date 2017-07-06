@@ -7,7 +7,7 @@ import { FsFunctions } from '../src/fs-functions';
 suite("provide Tests", () => {
     test("Should read dependencies", (done: MochaDone) => {
         const state = createState();
-        const config : Config = { };
+        const config: Config = {};
         const fsf = createFsf();
 
         provide(state, config, fsf)
@@ -38,10 +38,10 @@ suite("provide Tests", () => {
             .catch(err => done(err));
     });
 
-    test("Should show build in node modules when enabled", (done: MochaDone) => {
+    test("Should show built in node modules when enabled", (done: MochaDone) => {
         const state = createState();
         const config: Config = {
-            showBuildInLibs: true
+            showBuiltInLibs: true
         };
         const fsf = createFsf();
 
@@ -90,7 +90,7 @@ function createFsf(): FsFunctions {
     };
 }
 
-function readJsonMock(path) : Promise<any> {
+function readJsonMock(path): Promise<any> {
     switch (path) {
         case '/User/dummy/project/src/package.json':
             return Promise.resolve({

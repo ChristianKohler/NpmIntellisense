@@ -49,12 +49,12 @@ Npm intellisense scans only dependencies by default. Set scanDevDependencies to 
 }
 ```
 
-### Show build in (local) libs
-Shows build in node modules like 'path' of 'fs'
+### Show built in (local) libs
+Shows built in node modules like 'path' or 'fs'
 
 ```javascript
 {
-	"npm-intellisense.showBuildInLibs": true,
+	"npm-intellisense.showBuiltInLibs": true,
 }
 ```
 

@@ -8,19 +8,19 @@
         "vscode": "^1.0.0"
     },
     "homepage": "https://github.com/ChristianKohler/NpmIntellisense",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ChristianKohler/NpmIntellisense.git"
-	},
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ChristianKohler/NpmIntellisense.git"
+    },
     "categories": [
         "Other"
     ],
     "activationEvents": [
-         "onLanguage:typescript",
-         "onLanguage:javascript",
-         "onLanguage:javascriptreact",
-         "onLanguage:typescriptreact",
-         "onCommand:npm-intellisense.import"
+        "onLanguage:typescript",
+        "onLanguage:javascript",
+        "onLanguage:javascriptreact",
+        "onLanguage:typescriptreact",
+        "onCommand:npm-intellisense.import"
     ],
     "contributes": {
         "configuration": {
@@ -42,10 +42,10 @@
                     "default": false,
                     "description": "(experimental) Enables path intellisense in subfolders of modules"
                 },
-                "npm-intellisense.showBuildInLibs": {
+                "npm-intellisense.showBuiltInLibs": {
                     "type": "boolean",
                     "default": false,
-                    "description": "shows build in node modules like 'path' of 'fs'"
+                    "description": "shows built in node modules like 'path' or 'fs'"
                 },
                 "npm-intellisense.importES6": {
                     "type": "boolean",
