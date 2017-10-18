@@ -8,6 +8,7 @@ In the command palette (cmd-shift-p) select Install Extension and choose npm Int
 
 ![install](/images/npm_install.gif)
 
+Note: Visual Studio Code v1.17 (September 2017) [now includes](https://code.visualstudio.com/updates/v1_17#_import-path-quick-suggestions-in-javascript-and-typescript) part of this functionality. If you enable this plugin and the built-in feature, you will see double results in the suggestions.
 
 ## Contributing
 Something missing? Found a bug? - Create a pull request or an issue.
@@ -49,8 +50,8 @@ Npm intellisense scans only dependencies by default. Set scanDevDependencies to 
 }
 ```
 
-### Show build in (local) libs
-Shows build in node modules like 'path' of 'fs'
+### Show built-in (local) libs
+Shows built-in node modules like 'path' of 'fs'
 
 ```javascript
 {
