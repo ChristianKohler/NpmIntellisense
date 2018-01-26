@@ -6,7 +6,7 @@ export interface Config {
     packageSubfoldersIntellisense?: boolean,
     showBuildInLibs?: boolean,
     importES6?: boolean,
-    importQuotes?: string,
+    importQuotes?: "single" | "double",
     importLinebreak?: string,
     importDeclarationType?: string
 }
