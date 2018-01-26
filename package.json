@@ -1,90 +1,96 @@
 {
-    "name": "npm-intellisense",
-    "displayName": "npm Intellisense",
-    "description": "Visual Studio Code plugin that autocompletes npm modules in import statements",
-    "version": "1.2.1",
-    "publisher": "christian-kohler",
-    "engines": {
-        "vscode": "^1.0.0"
-    },
-    "homepage": "https://github.com/ChristianKohler/NpmIntellisense",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/ChristianKohler/NpmIntellisense.git"
-	},
-    "categories": [
-        "Other"
-    ],
-    "activationEvents": [
-         "onLanguage:typescript",
-         "onLanguage:javascript",
-         "onLanguage:javascriptreact",
-         "onLanguage:typescriptreact",
-         "onCommand:npm-intellisense.import"
-    ],
-    "contributes": {
-        "configuration": {
-            "type": "object",
-            "title": "npm-intellisense",
-            "properties": {
-                "npm-intellisense.scanDevDependencies": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Scans devDependencies as well"
-                },
-                "npm-intellisense.recursivePackageJsonLookup": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Look for package.json inside nearest directory instead of workspace root"
-                },
-                "npm-intellisense.packageSubfoldersIntellisense": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "(experimental) Enables path intellisense in subfolders of modules"
-                },
-                "npm-intellisense.showBuildInLibs": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "shows build in node modules like 'path' of 'fs'"
-                },
-                "npm-intellisense.importES6": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "For import command. Use import statements instead of require()"
-                },
-                "npm-intellisense.importQuotes": {
-                    "type": "string",
-                    "default": "'",
-                    "description": "For import command. The type of quotes to use in the snippet"
-                },
-                "npm-intellisense.importLinebreak": {
-                    "type": "string",
-                    "default": ";\r\n",
-                    "description": "For import command. The linebreak used after the snippet"
-                },
-                "npm-intellisense.importDeclarationType": {
-                    "type": "string",
-                    "default": "const",
-                    "description": "For import command. The declaration type used for require()"
-                }
-            }
+  "name": "npm-intellisense",
+  "displayName": "npm Intellisense",
+  "description":
+    "Visual Studio Code plugin that autocompletes npm modules in import statements",
+  "version": "1.2.1",
+  "publisher": "christian-kohler",
+  "engines": {
+    "vscode": "^1.0.0"
+  },
+  "homepage": "https://github.com/ChristianKohler/NpmIntellisense",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChristianKohler/NpmIntellisense.git"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onLanguage:typescript",
+    "onLanguage:javascript",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact",
+    "onCommand:npm-intellisense.import"
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "npm-intellisense",
+      "properties": {
+        "npm-intellisense.scanDevDependencies": {
+          "type": "boolean",
+          "default": false,
+          "description": "Scans devDependencies as well"
         },
-        "commands": [
-            {
-                "command": "npm-intellisense.import",
-                "title": "NPM Intellisense: Import module"
-            }
-        ]
+        "npm-intellisense.recursivePackageJsonLookup": {
+          "type": "boolean",
+          "default": true,
+          "description":
+            "Look for package.json inside nearest directory instead of workspace root"
+        },
+        "npm-intellisense.packageSubfoldersIntellisense": {
+          "type": "boolean",
+          "default": false,
+          "description":
+            "(experimental) Enables path intellisense in subfolders of modules"
+        },
+        "npm-intellisense.showBuildInLibs": {
+          "type": "boolean",
+          "default": false,
+          "description": "shows build in node modules like 'path' of 'fs'"
+        },
+        "npm-intellisense.importES6": {
+          "type": "boolean",
+          "default": true,
+          "description":
+            "For import command. Use import statements instead of require()"
+        },
+        "npm-intellisense.importQuotes": {
+          "type": "string",
+          "enum": ["single", "double"],
+          "default": "single",
+          "description":
+            "For import command. The type of quotes to use in the snippet"
+        },
+        "npm-intellisense.importLinebreak": {
+          "type": "string",
+          "default": ";\r\n",
+          "description":
+            "For import command. The linebreak used after the snippet"
+        },
+        "npm-intellisense.importDeclarationType": {
+          "type": "string",
+          "default": "const",
+          "description":
+            "For import command. The declaration type used for require()"
+        }
+      }
     },
-    "icon": "images/icon.png",
-    "main": "./out/src/extension",
-    "scripts": {
-        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
-        "postinstall": "node ./node_modules/vscode/bin/install"
-    },
-    "devDependencies": {
-        "typescript": "^1.8.5",
-        "vscode": "^0.11.0"
-    }
+    "commands": [
+      {
+        "command": "npm-intellisense.import",
+        "title": "NPM Intellisense: Import module"
+      }
+    ]
+  },
+  "icon": "images/icon.png",
+  "main": "./out/src/extension",
+  "scripts": {
+    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+    "typescript": "^1.8.5",
+    "vscode": "^0.11.0"
+  }
 }
