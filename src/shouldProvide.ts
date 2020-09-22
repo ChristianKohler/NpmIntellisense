@@ -2,7 +2,8 @@ import { State } from './State';
 
 export function shouldProvide(state: State) {
     return isImportOrRequire(state.textCurrentLine, state.cursorPosition)
-        && !startsWithADot(state.textCurrentLine, state.cursorPosition);
+        && !startsWithADot(state.textCurrentLine, state.cursorPosition)
+        && !startsWithAnAtSymbol(state.textCurrentLine, state.cursorPosition);
 }
 
 function isImportOrRequire(textCurrentLine: string, position: number): boolean  {
@@ -48,6 +49,13 @@ function startsWithADot(textCurrentLine: string, position: number) {
     return textWithinString 
         && textWithinString.length > 0 
         && textWithinString[0] === '.';
+}
+
+function startsWithAnAtSymbol(textCurrentLine: string, position: number) {
+    const textWithinString = getTextWithinString(textCurrentLine, position);
+    return textWithinString
+        && textWithinString.length > 0
+        && /^@[\/]/.test(textWithinString);
 }
 
 function getTextWithinString(text: string, position: number): string {
