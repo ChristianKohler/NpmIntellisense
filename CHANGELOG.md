@@ -1,3 +1,6 @@
+### v1.4.0
+- Feature: Add support for workspace trust
+
 ### v1.2.1
 - Documentation: Added missing documentation for showBuildInLibs
 
