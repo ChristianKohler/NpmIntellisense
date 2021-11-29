@@ -98,6 +98,7 @@ function createFsf(): FsFunctions {
 
 function readJsonMock(path): Promise<any> {
   switch (path) {
+    case "C:\\User\\dummy\\project\\src\\package.json":
     case "/User/dummy/project/src/package.json":
       return Promise.resolve({
         dependencies: {
@@ -122,6 +123,8 @@ function isFileMock(path) {
     [
       "/User/dummy/project/src/package.json",
       "/User/dummy/project/package.json",
+      "C:\\User\\dummy\\project\\src\\package.json",
+      "C:\\User\\dummy\\project\\package.json",
     ].indexOf(path) !== -1
   );
 }
