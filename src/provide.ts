@@ -44,6 +44,12 @@ function nearestPackageJson(rootPath: string, currentPath: string, fsf: FsFuncti
     const absoluteRootPath =  resolve(rootPath);
     const packageJsonFullPath = join(absoluteCurrentPath, 'package.json');
     
+
+    console.log("absoluteCurrentPath " + absoluteCurrentPath);
+    console.log("absoluteRootPath " + absoluteRootPath);
+    console.log("packageJsonFullPath " + packageJsonFullPath);
+    
+
     if (absoluteCurrentPath === absoluteRootPath || fsf.isFile(packageJsonFullPath)) {
         return packageJsonFullPath;
     }
