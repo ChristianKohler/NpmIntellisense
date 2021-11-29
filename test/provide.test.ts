@@ -5,7 +5,7 @@ import { Config } from '../src/config';
 import { FsFunctions } from '../src/fs-functions';
 
 suite("provide Tests", () => {
-    test("Should read dependencies", (done: MochaDone) => {
+    test("Should read dependencies", done => {
         const state = createState();
         const config : Config = { };
         const fsf = createFsf();
@@ -20,7 +20,7 @@ suite("provide Tests", () => {
             .catch(err => done(err));
     });
 
-    test("Should read dev dependencies", (done: MochaDone) => {
+    test("Should read dev dependencies", done => {
         const state = createState();
         const config: Config = {
             scanDevDependencies: true
@@ -38,7 +38,7 @@ suite("provide Tests", () => {
             .catch(err => done(err));
     });
 
-    test("Should show build in node modules when enabled", (done: MochaDone) => {
+    test("Should show build in node modules when enabled", done => {
         const state = createState();
         const config: Config = {
             showBuildInLibs: true
@@ -55,7 +55,7 @@ suite("provide Tests", () => {
             .catch(err => done(err));
     });
 
-    test("Should get nearest package json", (done: MochaDone) => {
+    test("Should get nearest package json", done => {
         const state = createState();
         const config: Config = {
             recursivePackageJsonLookup: true
