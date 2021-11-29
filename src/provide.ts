@@ -1,10 +1,10 @@
-import { State } from './State';
-import { Config } from './config';
-import { fsf, FsFunctions } from './fs-functions';
 import { join, resolve } from 'path';
-import { CompletionItem } from 'vscode';
-import { PackageCompletionItem } from './PackageCompletionItem';
 import * as repl from 'repl';
+import { CompletionItem } from 'vscode';
+import { Config } from './config';
+import { FsFunctions } from './fs-functions';
+import { PackageCompletionItem } from './PackageCompletionItem';
+import { State } from './State';
 
 export function provide(state: State, config: Config, fsf: FsFunctions): Promise<CompletionItem[]> {
     return getNpmPackages(state, config, fsf)
@@ -40,13 +40,21 @@ function getPackageJson(state: State, config: Config, fsf: FsFunctions) {
 }
 
 function nearestPackageJson(rootPath: string, currentPath: string, fsf: FsFunctions): string {
-    const packageJsonFullPath = join(currentPath, 'package.json');
+    const absoluteCurrentPath = resolve(currentPath);
+    const absoluteRootPath =  resolve(rootPath);
+    const packageJsonFullPath = join(absoluteCurrentPath, 'package.json');
+    
 
-    if (currentPath === rootPath || fsf.isFile(packageJsonFullPath)) {
+    console.log("absoluteCurrentPath " + absoluteCurrentPath);
+    console.log("absoluteRootPath " + absoluteRootPath);
+    console.log("packageJsonFullPath " + packageJsonFullPath);
+    
+
+    if (absoluteCurrentPath === absoluteRootPath || fsf.isFile(packageJsonFullPath)) {
         return packageJsonFullPath;
     }
 
-    return nearestPackageJson(rootPath, resolve(currentPath, '..'), fsf);
+    return nearestPackageJson(absoluteRootPath, resolve(absoluteCurrentPath, '..'), fsf);
 }
 
 function readModuleSubFolders(dependencies: string[], state: State, fsf: FsFunctions) {
