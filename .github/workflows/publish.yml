@@ -48,7 +48,7 @@ jobs:
           VSIX_PACKAGE_PATH: ${{ steps.setup.outputs.packageName }}
         run: |
           npm i -g vsce
-          vsce pacakge
+          vsce package
       
       - uses: actions/upload-artifact@v2
         with:
