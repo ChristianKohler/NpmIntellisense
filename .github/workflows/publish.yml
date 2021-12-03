@@ -44,8 +44,6 @@ jobs:
         run: echo "::set-output name=packageName::$(node -e "console.log(require('./package.json').name + '-' + require('./package.json').version + '.vsix')")"
 
       - name: Package
-        env:
-          VSIX_PACKAGE_PATH: ${{ steps.setup.outputs.packageName }}
         run: npx vsce package --packagePath ${{ steps.setup.outputs.packageName }}
       
       - uses: actions/upload-artifact@v2
