@@ -2,12 +2,15 @@
   "name": "npm-intellisense",
   "displayName": "npm Intellisense",
   "description": "Visual Studio Code plugin that autocompletes npm modules in import statements",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "publisher": "christian-kohler",
   "engines": {
     "vscode": "^1.0.0"
   },
   "homepage": "https://github.com/ChristianKohler/NpmIntellisense",
+  "sponsor": {
+    "url": "https://github.com/sponsors/ChristianKohler"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ChristianKohler/NpmIntellisense.git"
