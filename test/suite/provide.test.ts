@@ -3,6 +3,7 @@ import { provide } from "../../src/provide";
 import { State } from "../../src/State";
 import { Config } from "../../src/config";
 import { FsFunctions } from "../../src/fs-functions";
+import * as repl from "repl";
 
 suite("provide Tests", () => {
   test("Should read dependencies", (done) => {
@@ -44,10 +45,11 @@ suite("provide Tests", () => {
       showBuildInLibs: true,
     };
     const fsf = createFsf();
+    const numOfBuildInLibs = (<any>repl)._builtinLibs.length;
 
     provide(state, config, fsf)
       .then((dependencies) => {
-        assert.equal(dependencies.length,  43);
+        assert.equal(dependencies.length, numOfBuildInLibs + 2);
         assert.equal(
           true,
           dependencies.some((d) => d.textEdit.newText === "fs")
